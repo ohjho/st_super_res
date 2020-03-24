@@ -5,7 +5,7 @@ from utils import GetInputImage
 
 from ISR.models import RDN, RRDN
 
-@st.cache
+#@st.cache
 def make_model(name):
     l_model_name = ['gans', 'psnr-large', 'psnr-small', 'noise-cancel']
     if name not in l_model_name:
