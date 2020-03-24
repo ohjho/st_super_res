@@ -14,7 +14,7 @@ def make_model(name):
         model_fun = RRDN if l_model_name.index(name) == 0 else RDN
         return model_fun(weights = name)
 
-@st.cache
+#@st.cache
 def sr_image(img_np_arr, model = RRDN(weights = 'gans')):
     '''
     Use ISR model to super-res the give image and return the resulting np array
