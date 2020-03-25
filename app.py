@@ -52,7 +52,7 @@ def Main():
         new_img = Image.fromarray(sr_img).resize(size = (h * 2, w * 2))
         img_comb = np.hstack([
                             np.asarray(org_img)[:, :w, :],
-                            np.asarray(new_img)[:, :-w, :]
+                            np.asarray(new_img)[:, w:, :]
                             ])
         st.subheader('Original vs Super Res')
         st.image(img_comb, channels = color_channels, use_column_width = True)
