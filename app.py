@@ -50,7 +50,8 @@ def Main():
         h, w, c = img_np_arr.shape
         org_img = Image.fromarray(img_np_arr).resize(size = (h * 2, w * 2))
         new_img = Image.fromarray(sr_img).resize(size = (h * 2, w * 2))
-        np_black_line = np.zeros(shape = (h,2) *c)
+        black_line_width = 5
+        np_black_line = np.zeros(shape = [h,black_line_width, c], dtype = np.uint8)
         img_comb = np.hstack([
                             np.asarray(org_img)[:, :w, :],
                             np_black_line,
