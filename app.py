@@ -55,7 +55,7 @@ def Main():
                             np.asarray(new_img)[:, :-w, :]
                             ])
         st.subheader('Original vs Super Res')
-        st.image(img_comb, channels = color_channels,, use_column_width = True)
+        st.image(img_comb, channels = color_channels, use_column_width = True)
 
         # st.subheader('Original')
         # st.image(img_np_arr, channels = color_channels, use_column_width = True)
