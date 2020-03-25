@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+from PIL import Image
 
 from utils import GetInputImage
 
@@ -44,11 +45,21 @@ def Main():
         model = make_model(name = model_name)
         sr_img = sr_image(img_np_arr, model)
 
-        st.subheader('Original')
-        st.image(img_np_arr, channels = color_channels, use_column_width = True)
+        h, w, c = img_np_arr.shape
+        org_img = Image.fromarray(img_np_arr).resize(size = (h * 2, w * 2))
+        new_img = Image.fromarray(sr_img).resize(size = (h * 2, w * 2))
+        img_comb = np.vstack([
+                            np.asarray(org_img)[:, :w, :],
+                            np.asarray(new_img)[:, :-w, :]
+                            ])
+        st.subheader('Original vs Super Res')
+        st.image(img_comb, channels = color_channels,, use_column_width = True)
 
-        st.subheader('Super Res')
-        st.image(sr_img, channels = color_channels, use_column_width = True)
+        # st.subheader('Original')
+        # st.image(img_np_arr, channels = color_channels, use_column_width = True)
+        #
+        # st.subheader('Super Res')
+        # st.image(sr_img, channels = color_channels, use_column_width = True)
 
 
 if __name__ == '__main__':
