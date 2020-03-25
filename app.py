@@ -50,7 +50,7 @@ def Main():
         h, w, c = img_np_arr.shape
         org_img = Image.fromarray(img_np_arr).resize(size = (h * 2, w * 2))
         new_img = Image.fromarray(sr_img).resize(size = (h * 2, w * 2))
-        img_comb = np.vstack([
+        img_comb = np.hstack([
                             np.asarray(org_img)[:, :w, :],
                             np.asarray(new_img)[:, :-w, :]
                             ])
