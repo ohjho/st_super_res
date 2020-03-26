@@ -24,7 +24,7 @@ def GetInputImage(st_asset = st, type = ['jpg', 'png', 'jpeg'], color = 'RGB'):
 	else:
 		return None
 
-def image_hstack(left_img_arr, right_img_arr, left_pct = None, black_line_width = 5, up_scale = False):
+def image_hstack(left_img_arr, right_img_arr, left_pct = None, black_line_width = 5, up_scale = False, resample = None):
 	'''
 	return one image of left_img_arr and right_img_arr join together
 	Args:
@@ -45,8 +45,8 @@ def image_hstack(left_img_arr, right_img_arr, left_pct = None, black_line_width 
 	left_end = left_pct if left_pct else 1
 	right_start = left_pct if left_pct else 0
 
-	l_img = Image.fromarray(left_img_arr).resize(size = (w,h))
-	r_img = Image.fromarray(right_img_arr).resize(size = (w,h))
+	l_img = Image.fromarray(left_img_arr).resize(size = (w,h), resample = resample)
+	r_img = Image.fromarray(right_img_arr).resize(size = (w,h), resample = resample)
 	np_black_line = np.zeros(shape = [h, black_line_width, 3], dtype = np.uint8)
 	img_comb = np.hstack([
 						np.asarray(l_img)[:, :int(w * left_end ), :],
