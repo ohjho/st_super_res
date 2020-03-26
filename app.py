@@ -15,8 +15,8 @@ def make_model(name):
         model_fun = RRDN if l_model_name.index(name) == 0 else RDN
         return model_fun(weights = name)
 
-#@st.cache
-def sr_image(img_np_arr, model = RRDN(weights = 'gans')):
+@st.cache
+def sr_image(img_np_arr, model_name = 'gans'):
     '''
     Use ISR model to super-res the give image and return the resulting np array
     Args:
@@ -24,6 +24,7 @@ def sr_image(img_np_arr, model = RRDN(weights = 'gans')):
                 RDN - psnr-large, psnr-small, noise-cancel
                 RRDN - gans
     '''
+    model = make_model(model_name)
     sr_im = model.predict(img_np_arr)
     return sr_im
 
@@ -42,20 +43,19 @@ def Main():
     st.sidebar.markdown('[-> details](https://github.com/idealo/image-super-resolution#pre-trained-networks)')
 
     if type(img_np_arr) == np.ndarray:
-        model = make_model(name = model_name)
-        sr_img = sr_image(img_np_arr, model)
+        sr_img = sr_image(img_np_arr, model_name = model_name)
 
         print(f'org img shape: {img_np_arr.shape}\nSR img shape: {sr_img.shape}')
 
-        h, w, c = img_np_arr.shape
-        org_img = Image.fromarray(img_np_arr).resize(size = (h * 2, w * 2))
-        new_img = Image.fromarray(sr_img).resize(size = (h * 2, w * 2))
+        h, w, c = sr_img.shape
+        org_img = Image.fromarray(img_np_arr).resize(size = (h, w))
+        new_img = Image.fromarray(sr_img)
         black_line_width = 5
-        np_black_line = np.zeros(shape = [h*2,black_line_width, c], dtype = np.uint8)
+        np_black_line = np.zeros(shape = [h,black_line_width, c], dtype = np.uint8)
         img_comb = np.hstack([
-                            np.asarray(org_img)[:, :w, :],
+                            np.asarray(org_img)[:, :int(w/2), :],
                             np_black_line,
-                            np.asarray(new_img)[:, w:, :]
+                            np.asarray(new_img)[:, int(w/2):, :]
                             ])
         st.subheader('Original vs Super Res')
         st.image(img_comb, channels = color_channels, use_column_width = True)
