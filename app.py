@@ -47,7 +47,7 @@ def Main():
                         'bicubic': Image.BICUBIC,
                         'lanczos': Image.LANCZOS
                         }
-    resample_key = st.sidebar.selectbox('baseline image resampling method', options = list(pil_resample_dict.keys())
+    resample_key = st.sidebar.selectbox('baseline image resampling method', options = list(pil_resample_dict.keys()))
 
     if type(img_np_arr) == np.ndarray:
         sr_img = sr_image(img_np_arr, model_name = model_name)
