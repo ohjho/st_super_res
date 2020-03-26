@@ -48,7 +48,7 @@ def Main():
         print(f'org img shape: {img_np_arr.shape}\nSR img shape: {sr_img.shape}')
 
         h, w, c = sr_img.shape
-        org_img = Image.fromarray(img_np_arr).resize(size = (h, w))
+        org_img = Image.fromarray(img_np_arr).resize(size = (w, h))
         new_img = Image.fromarray(sr_img)
         black_line_width = 5
         np_black_line = np.zeros(shape = [h,black_line_width, c], dtype = np.uint8)
