@@ -48,8 +48,8 @@ def image_hstack(left_img_arr, right_img_arr, left_pct = None, black_line_width 
 	r_img = Image.fromarray(right_img_arr).resize(size = (w,h))
 	np_black_line = np.zeros(shape = [h, black_line_width, 3], dtype = np.uint8)
 	img_comb = np.hstack([
-						np.asarray(l_img)[:, :(w * left_pct ), :],
+						np.asarray(l_img)[:, :int(w * left_pct ), :],
 						np_black_line,
-						np.asarray(r_img)[:,(w * (1-left_pct)):,:]
+						np.asarray(r_img)[:,int(w * (1-left_pct)):,:]
 						])
 	return img_comb
