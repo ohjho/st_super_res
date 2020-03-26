@@ -54,7 +54,7 @@ def Main():
         st.sidebar.info(f'original image shape: `{img_np_arr.shape}`\nSuperRes image shape: `{sr_img.shape}`')
 
         st.subheader('Original vs Super Res')
-        left_pct = st.sidebar.slider('Percentage of Orginal Image to show:', min_value = 0.0, max_value = 1.0, step = 0.01, value = 0.5)
+        left_pct = st.slider('Percentage of Orginal Image to show:', min_value = 0.0, max_value = 1.0, step = 0.01, value = 0.5)
         img_comb = image_hstack(img_np_arr, sr_img, left_pct = left_pct, black_line_width = 5, up_scale = True, resample = pil_resample_dict[resample_key])
         st.image(img_comb, channels = color_channels, use_column_width = True)
 
