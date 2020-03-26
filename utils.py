@@ -40,16 +40,17 @@ def image_hstack(left_img_arr, right_img_arr, left_pct = None, black_line_width 
 	else:
 		h, w = min(h, _h), min(w, _w)
 
-	left_pct = left_pct if left_pct else 1
 	if left_pct > 1:
 		raise TypeError(f"left_pct must be float and less than or equal to 1.")
+	left_end = left_pct if left_pct else 1
+	right_start = left_pct if left_pct else 0
 
 	l_img = Image.fromarray(left_img_arr).resize(size = (w,h))
 	r_img = Image.fromarray(right_img_arr).resize(size = (w,h))
 	np_black_line = np.zeros(shape = [h, black_line_width, 3], dtype = np.uint8)
 	img_comb = np.hstack([
-						np.asarray(l_img)[:, :int(w * left_pct ), :],
+						np.asarray(l_img)[:, :int(w * left_end ), :],
 						np_black_line,
-						np.asarray(r_img)[:,int(w * (1-left_pct)):,:]
+						np.asarray(r_img)[:,int(w * right_start):,:]
 						])
 	return img_comb
