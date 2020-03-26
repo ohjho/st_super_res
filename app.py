@@ -41,7 +41,7 @@ def Main():
     l_model_name = ['gans', 'psnr-large', 'psnr-small', 'noise-cancel']
     model_name = st.sidebar.selectbox('model type', options = l_model_name)
     st.sidebar.markdown('[-> details](https://github.com/idealo/image-super-resolution#pre-trained-networks)')
-    left_pct = st.sidebar.slider('Percentage of Orginal Image to show:', min_value = 0, max_value = 1.0, step = 0.1, value = 0.5)
+    left_pct = st.sidebar.slider('Percentage of Orginal Image to show:', min_value = 0.0, max_value = 1.0, step = 0.1, value = 0.5)
 
     if type(img_np_arr) == np.ndarray:
         sr_img = sr_image(img_np_arr, model_name = model_name)
